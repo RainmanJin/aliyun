@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.PageLogCheckMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.PageLog">
+        <id column="id" property="id"/>
+        <result column="userId" property="userId"/>
+        <result column="page" property="page"/>
+        <result column="event" property="event"/>
+        <result column="param" property="param"/>
+        <result column="source" property="source"/>
+        <result column="project" property="project"/>
+        <result column="createTime" property="createTime"/>
+        <result column="eventTime" property="eventTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userid as userId, page, event, param ,
+        source,project, createtime as createTime, eventtime as eventTime
+    </sql>
+    <select id="getList" resultType="com.stylefeng.guns.modular.system.model.PageLog" statementType="STATEMENT">
+        select
+        <include refid="Base_Column_List"/>
+        from ${tableName}
+        where eventtime &lt;= NOW()
+        <if test="page != null and page != ''">
+            and page = '${page}'
+        </if>
+        <if test="project != null and project != ''">
+            and project = '${project}'
+        </if>
+        <if test="param != null and param != ''">
+            and param like '%${param}%'
+        </if>
+        <if test="event != null and event != ''">
+            and event = '${event}'
+        </if>
+        <if test="user_id != null and user_id != ''">
+            and param like '%${user_id}%'
+        </if>
+        <if test="userId != null and userId != ''">
+            and userid = '${userId}'
+        </if>
+        <if test="eventtime_start != null and eventtime_start != ''">
+            and eventtime &gt;= '${eventtime_start}'
+        </if>
+        <if test="eventtime_end != null and eventtime_end != ''">
+            and eventtime &lt;= '${eventtime_end}'
+        </if>
+        <if test="createtime_start != null and createtime_start != ''">
+            and createtime &gt;= '${createtime_start}'
+        </if>
+        <if test="createtime_end != null and createtime_end != ''">
+            and createtime &lt;= '${createtime_end}'
+        </if>
+        order by eventtime desc
+        limit ${limitCount}
+    </select>
+
+</mapper>

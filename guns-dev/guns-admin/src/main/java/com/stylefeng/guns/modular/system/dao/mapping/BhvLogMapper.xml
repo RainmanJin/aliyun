@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.BhvLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.BhvLog">
+        <id column="id" property="id" />
+        <result column="page_event_param_id" property="pageEventParamId" />
+        <result column="page_name" property="pageName" />
+        <result column="page_code" property="pageCode" />
+        <result column="event_name" property="eventName" />
+        <result column="event_code" property="eventCode" />
+        <result column="param_name" property="paramName" />
+        <result column="param_code" property="paramCode" />
+        <result column="param_value" property="paramValue" />
+        <result column="discribe" property="discribe" />
+        <result column="label" property="label" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, page_event_param_id AS pageEventParamId, page_name AS pageName, page_code AS pageCode, event_name AS eventName, event_code AS eventCode, param_name AS paramName, param_code AS paramCode, param_value AS paramValue, discribe, label, create_time AS createTime, update_time AS updateTime
+    </sql>
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.LogParamGroupMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.LogParamGroup">
+        <id column="id" property="id"/>
+        <result column="group_name" property="groupName"/>
+        <result column="group_description" property="groupDescription"/>
+        <result column="param_group_content" property="paramGroupContent"/>
+        <result column="is_delete" property="isDelete"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, group_name AS groupName, group_description AS groupDescription, param_group_content AS paramGroupContent, is_delete AS isDelete
+    </sql>
+    <select id="getParamKeyAndValue" resultType="java.util.Map">
+        SELECT
+        lpkd.param_key_code as param_key_code,lpvd.param_value_code as param_value_code,lpvd.param_value_name as param_value_name
+        FROM
+        log_param_key_dic lpkd,
+        log_param_value_dic lpvd
+        where lpkd.id=${keyid} and lpvd.id=${valueid};
+    </select>
+
+    <!--   <select id="getParamKeyAndValue" resultType="java.lang.String">
+           SELECT
+           CONCAT('"',lpkd.param_key_code,'"',' : ','"',lpvd.param_value_code,'"','(',lpvd.param_value_name,')')
+           FROM
+           log_param_key_dic lpkd,
+           log_param_value_dic lpvd
+           where lpkd.id=${keyid} and lpvd.id=${valueid};
+       </select> -->
+</mapper>

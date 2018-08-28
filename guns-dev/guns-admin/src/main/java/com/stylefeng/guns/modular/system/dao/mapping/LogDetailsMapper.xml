@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.LogDetailsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.LogDetails">
+        <id column="id" property="id"/>
+        <result column="page_num" property="pageNum"/>
+        <result column="event_num" property="eventNum"/>
+        <result column="type" property="type"/>
+        <result column="version_id" property="versionId"/>
+        <result column="fit_platform_id" property="fitPlatformId"/>
+        <result column="log_content" property="logContent"/>
+        <result column="param_group_id" property="paramGroupId"/>
+        <result column="log_description" property="logDescription"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, page_num AS pageNum, event_num AS eventNum, type, version_id AS versionId, fit_platform_id AS fitPlatformId, log_content AS logContent,param_group_id AS paramGroupId,log_description AS logDescription,is_delete AS isDelete, update_time AS updateTime, create_time AS createTime
+    </sql>
+    <!--加载page下拉菜单-->
+    <select id="pageInit" resultType="java.util.Map">
+        SELECT log_page_dic.id AS page_num, log_page_dic.page_code AS page_code, log_page_dic.page_name AS page_name
+        FROM log_page_dic where is_delete='0'
+    </select>
+    <!--加载event下拉菜单-->
+    <select id="eventInit" resultType="java.util.Map">
+       SELECT log_event_dic.id AS event_num, log_event_dic.event_code AS event_code, log_event_dic.event_name AS event_name
+       FROM  log_event_dic where is_delete='0'
+    </select>
+
+    <!--加载打点类型下拉菜单-->
+    <select id="typeInit" resultType="java.util.Map">
+      SELECT id,num,pid,name from sys_dict where pid in (select id from sys_dict where name='打点类型')
+    </select>
+
+    <!--加载打点版本下拉菜单-->
+    <select id="versionInit" resultType="java.util.Map">
+        SELECT id,num,pid,name from sys_dict where pid in (select id from sys_dict where name='打点版本' or name='活动')
+    </select>
+    <!--加载打点版本下拉菜单-->
+    <select id="fitPlatformInit" resultType="java.util.Map">
+        SELECT id,num,pid,name from sys_dict where pid in (select id from sys_dict where name='打点适用平台')
+    </select>
+
+    <!--加载参数key下拉菜单-->
+    <select id="paramKeyInit" resultType="java.util.Map">
+SELECT
+	lpkd.id AS id,
+	lpkd.param_key_code AS param_key_code,
+	lpkd.param_key_name AS param_key_name
+FROM
+	log_param_key_dic lpkd
+WHERE
+	is_delete = '0'
+    </select>
+    <!--加载参数value下拉菜单-->
+    <select id="paramValueInit" resultType="java.util.Map">
+SELECT
+	lpkd.id AS id,
+	lpkd.param_value_code AS param_value_code,
+	lpkd.param_value_name AS param_value_name
+FROM
+	log_param_value_dic lpkd
+WHERE
+	is_delete = '0'
+    </select>
+    <select id="selectLogDetailsList" resultMap="BaseResultMap">
+        SELECT
+        ld.id as id,
+        lpc.page_code AS page_num,
+        led.event_code AS event_num,
+        sd_type.`name` as type,
+        sd_version.`name` AS version_id,
+        ld.fit_platform_id AS fit_platform_id,
+        log_content AS log_content,
+        param_group_id AS param_group_id,
+        ld.log_description AS logDescription,
+        ld.is_delete AS is_delete,
+        ld.update_time AS update_time,
+        ld.create_time AS create_time
+        FROM
+        log_details ld
+        LEFT JOIN log_page_dic lpc on ld.page_num=lpc.id
+
+        LEFT JOIN log_event_dic led on ld.event_num=led.id
+
+        LEFT JOIN sys_dict sd_type on ld.type =sd_type.id
+
+        LEFT JOIN sys_dict sd_version on ld.version_id=sd_version.id
+
+        where ld.is_delete=${isDelete}
+        <if test="pageNum != null and pageNum != ''">
+            and lpc.page_code like '%${pageNum}%'
+        </if>
+        <if test="eventNum != null and eventNum != ''">
+            and led.event_code like '%${eventNum}%'
+        </if>
+        <if test="type != null and type != ''">
+            and ld.type=${type}
+        </if>
+        <if test="versionId != null and versionId != ''">
+            and ld.version_id=${versionId}
+        </if>
+        <if test="fitPlatformId != null and fitPlatformId != '' and fitPlatformId !='59'">
+            and (ld.fit_platform_id ='${fitPlatformId}' or ld.fit_platform_id like '${fitPlatformId},%' or ld.fit_platform_id like ',${fitPlatformId},%' or ld.fit_platform_id like '%,${fitPlatformId}')
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and ld.create_time &gt;= str_to_date('${startTime}','%Y-%m-%d %H:%i:%s')
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and ld.create_time &lt;= str_to_date('${endTime}','%Y-%m-%d %H:%i:%s')
+        </if>
+        ORDER by ld.version_id,ld.page_num,ld.event_num,ld.update_time DESC
+    </select>
+
+
+    <select id="selectLogDetailsById" resultType="com.stylefeng.guns.modular.system.model.LogDetails">
+        SELECT
+        ld.id as id,
+        lpc.page_code AS pageNum,
+        led.event_code AS eventNum,
+        sd_type.`name` as type,
+        sd_version.`name` AS versionId,
+        ld.fit_platform_id AS fitPlatformId,
+        log_content AS logContent,
+        param_group_id AS paramGroupId,
+        ld.log_description AS logDescription,
+        ld.is_delete AS isDelete,
+        ld.update_time AS updateTime,
+        ld.create_time AS createTime
+        FROM
+        log_details ld
+        LEFT JOIN log_page_dic lpc on ld.page_num=lpc.id
+
+        LEFT JOIN log_event_dic led on ld.event_num=led.id
+
+        LEFT JOIN sys_dict sd_type on ld.type =sd_type.id
+
+        LEFT JOIN sys_dict sd_version on ld.version_id=sd_version.id
+
+        LEFT JOIN sys_dict sd_fitplat on ld.fit_platform_id =sd_fitplat.id
+
+        where ld.id=${id}
+
+    </select>
+    <update id="updateById_def">
+        UPDATE  log_details
+        SET page_num='${pageNum}',
+        event_num='${eventNum}',
+        type='${type}',
+        version_id='${versionId}',
+        fit_platform_id='${fitPlatformId}',
+        log_content='${logContent}',
+        param_group_id='${paramGroupId}',
+        log_description='${logDescription}',
+        update_time=now()
+        where id=${id}
+    </update>
+
+</mapper>
