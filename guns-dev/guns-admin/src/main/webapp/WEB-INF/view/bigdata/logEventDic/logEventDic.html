@@ -1,0 +1,41 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>事件管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="eventcodeInput" name="事件code" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="eventnameInput" name="事件名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="LogEventDic.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="LogEventDicTableToolbar" role="group">
+                            @if(shiro.hasPermission("/logEventDic/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="LogEventDic.openAddLogEventDic()"/>
+                            @}
+                            @if(shiro.hasPermission("/logEventDic/update")){
+                                <#button name="修改" icon="fa-edit" clickFun="LogEventDic.openLogEventDicDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/logEventDic/delete")){
+                                <#button name="删除" icon="fa-remove" clickFun="LogEventDic.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="LogEventDicTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/bigdata/logEventDic/logEventDic.js"></script>
+@}

@@ -1,0 +1,70 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>打点管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="pageName" name="页面code" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="eventName" name="事件code" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#SelectCon id="type" name="打点种类" >
+                                    <option value="">打点种类</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#SelectCon id="version" name="打点版本" >
+                                    <option value="">打点版本</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#SelectCon id="fit_platform" name="适用平台" >
+                                    <option value="">适用平台</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#TimeCon id="startTime" name="创建时间（开始）" isTime="true" pattern="YYYY-MM-DD hh:mm:ss" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#TimeCon id="endTime" name="创建时间（结束）" isTime="true" pattern="YYYY-MM-DD hh:mm:ss" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#SelectCon id="is_delete" name="是否废弃" >
+                                    <option value="0">未废弃</option>
+                                    <option value="1">已废弃</option>
+                                </#SelectCon>
+                            </div>
+                            <!--<div class="col-sm-3">-->
+                                <!--<#button name="搜索" icon="fa-search" clickFun="LogDetails.search()"/>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="hidden-xs" id="LogDetailsTableToolbar" role="group">
+                            <#button name="搜索" icon="fa-search" clickFun="LogDetails.search()" />
+                            @if(shiro.hasPermission("/logDetails/add")){
+                            <#button name="添加" icon="fa-plus" clickFun="LogDetails.openAddLogDetails()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/logDetails/update")){
+                            <#button name="修改" icon="fa-edit" clickFun="LogDetails.openLogDetailsDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/logDetails/delete")){
+                            <#button name="废弃" icon="fa-remove" clickFun="LogDetails.delete()" space="true"/>
+                            @}
+                            <#button name="预览" icon="fa-search" clickFun="LogDetails.previewItem()" space="true"/>
+                        </div>
+                        <#table id="LogDetailsTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/bigdata/logDetails/logDetails.js"></script>
+@}

@@ -1,0 +1,52 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="tag_id" value="${item.tag_id}">
+            <input type="hidden" id="tag_classify_id_s" value="${item.tag_classify_id}">
+            <input type="hidden" id="tag_type_s" value="${item.tag_type}">
+            <input type="hidden" id="tag_status_s" value="${item.tag_status}">
+            <input type="hidden" id="starttime_s" value="${item.starttime}">
+            <input type="hidden" id="endtime_s" value="${item.endtime}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <#SelectCon id="tag_classify_id" name="标签分类"  underline="true">
+                    </#SelectCon>
+                    <#SelectCon id="tag_type" name="标签类型"  underline="true">
+                        <option value="1">以用户id分组</option>
+                        <option value="2">以设备id分组</option>
+                        <option value="3">不限</option>
+                    </#SelectCon>
+                    <#SelectCon id="tag_status" name="标签状态"  underline="true">
+                        <option value="2">静态</option>
+                        <option value="1">动态</option>
+                    </#SelectCon>
+                    <div class="hideDiv">
+                        <#TimeCon id="starttime" name="开始时间" value="${item.starttime}" isTime="true" pattern="YYYY-MM-DD hh:mm:ss" underline="true" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <#NameCon id="tag_name" name="标签名称" underline="true" value='${item.tag_name}'/>
+                    <#NameCon id="tag_value" name="标签值" underline="true" value='${item.tag_value}'/>
+                    <#NameCon id="tag_user_count" name="拥有人数" underline="true" value='${item.tag_user_count}'/>
+                    <div class="hideDiv">
+                        <#TimeCon id="endtime" name="结束时间" value="${item.endtime}" isTime="true" pattern="YYYY-MM-DD hh:mm:ss" underline="true"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="KsUserTagManageInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="KsUserTagManageInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/bigdata/ksUserTagManage/ksUserTagManage_info.js"></script>
+@}

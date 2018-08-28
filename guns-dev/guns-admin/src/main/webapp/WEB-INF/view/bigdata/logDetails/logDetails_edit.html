@@ -1,0 +1,164 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id_input" value="${item.id}">
+            <input type="hidden" id="pageNum_input" value="${item.pageNum}"/>
+            <input type="hidden" id="eventNum_input" value="${item.eventNum}"/>
+            <input type="hidden" id="type_input" value="${item.type}"/>
+            <input type="hidden" id="versionId_input" value="${item.versionId}"/>
+            <input type="hidden" id="fitPlatformId_input" value="${item.fitPlatformId}"/>
+            <input type="hidden" id="logContent_input" value="${item.logContent}"/>
+            <input type="hidden" id="paramGroupId_input" value="${item.paramGroupId}"/>
+            <input type="hidden" id="logDescription_input" value="${item.logDescription}"/>
+         <!--   <input type="hidden" id="create_time" value="${item.createTime}"/> -->
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">页面code</label>
+                        <div class="col-sm-9">
+                            <select id="pageName" name="页面code" underline="true"
+                                    class="selectpicker show-tick form-control" data-live-search="true">
+                                <option value="">页面code</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">事件code</label>
+                        <div class="col-sm-9">
+                            <select id="eventName" name="事件code" underline="true"
+                                    class="selectpicker show-tick form-control" data-live-search="true">
+                                <option value="">事件code</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">打点种类</label>
+                        <div class="col-sm-9">
+                            <select id="type" name="打点种类" class="selectpicker show-tick form-control"
+                                    data-live-search="true">
+                                <option value="">打点种类</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">打点版本</label>
+                        <div class="col-sm-9">
+                            <select id="version" name="打点版本" class="selectpicker show-tick form-control"
+                                    data-live-search="true">
+                                <option value="">打点版本</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">适用平台</label>
+                        <div class="col-sm-9">
+                            <select id="fit_platform" title="适用平台" class="selectpicker show-tick form-control"
+                                    data-live-search="true" multiple>
+                                <option value="">适用平台</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">参数组</label>
+                        <div class="col-sm-9">
+                            <select id="paramGroup" name="paramGroup" title="参数组设置"
+                                    class="selectpicker show-tick form-control"
+                                    multiple data-live-search="true">
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" style="float: left">打点说明</label>
+                    <div class="col-sm-9">
+                        <input id="logDescription" name="打点说明" class="show-tick form-control"/>
+                    </div>
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="row">
+                <div class="col-sm-12" id="itemsArea">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">param私有值</label>
+                        <div class="col-sm-10">
+                            <#button btnCss="info" name="增加" icon="fa-plus" clickFun="LogDetailsInfoDlg.addItem()"/>
+                            <#button btnCss="info" name="预览" icon="fa-search" clickFun="LogDetailsInfoDlg.preview()"/>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--<div class="row">-->
+                <!--<label class="col-sm-10" id="previewAir" ></label>-->
+            <!--</div>-->
+            <div class="row" style="margin-left:-0.25rem" >
+                <div class="col-sm-10" id="previewAir" ></div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="LogDetailsInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="LogDetailsInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<script type="text/template" id="itemTemplate">
+    <div class="row" name="logDetailItem" id="logDetailItem">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">参数名</label>
+            <div class="col-sm-3">
+                <select name="参数名" id="paramKey" data-live-search="true" class="selectpicker show-tick form-control">
+                    <option value="">参数名</option>
+                </select>
+            </div>
+            <label class="col-sm-2 control-label">参数值</label>
+            <div class="col-sm-3">
+                <select name="参数值" id="paramValue" data-live-search="true" class="selectpicker show-tick form-control">
+                    <option value="">参数值</option>
+                </select>
+            </div>
+            <div class="col-sm-1">
+                <#button btnCss="danger" name="删除" id="cancel" icon="fa-remove" clickFun="LogDetailsInfoDlg.deleteItem(event)"/>
+            </div>
+        </div>
+    </div>
+
+</script>
+<style type="text/css">
+    .btn-default {
+        background-color: #ffffff;
+        border-color: #c2c2c2;
+        color: #101010;
+    }
+
+    .btn-default:hover {
+        background-color: #ffffff;
+        border-color: #c2c2c2;
+        color: #101010;
+    }
+
+</style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-*.min.js"></script>
+<script src="${ctxPath}/static/modular/bigdata/logDetails/logDetails_info.js"></script>
+@}

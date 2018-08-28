@@ -1,0 +1,35 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-sm-5 b-r">
+                    <#select id="platform" name="环境" >
+                        <option value="test">测试环境</option>
+                        <option value="prod">生产环境</option>
+                    </#select>
+                </div>
+                <div class="col-sm-5">
+                    <#input id="appid" name="用户ID" placeholder="填写app上的用户ID"/>
+                </div>
+
+                <div class="col-sm-2">
+                    <#button name="速查" icon="fa-search" clickFun="LogCheckDeviceInfoDlg.fastSelect()" space="true"/>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-bordered" id="deviceIdTable">
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<style>
+    th{
+        background-color: #f1f1f1;
+        text-align: center;
+    }
+</style>
+<script src="${ctxPath}/static/modular/bigdata/logCheckDevice/logCheckDevice_info.js"></script>
+@}

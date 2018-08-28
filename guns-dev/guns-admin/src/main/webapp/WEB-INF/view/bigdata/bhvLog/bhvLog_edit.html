@@ -1,0 +1,40 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="id" value="${item.id}" underline="true"/>
+                            <#input id="pageEventParamId" name="页面事件参数关联ID" value="${item.pageEventParamId}" underline="true"/>
+                            <#input id="pageName" name="页面名称" value="${item.pageName}" underline="true"/>
+                            <#input id="pageCode" name="页面编码" value="${item.pageCode}" underline="true"/>
+                            <#input id="eventName" name="事件名称" value="${item.eventName}" underline="true"/>
+                            <#input id="eventCode" name="事件编码" value="${item.eventCode}" underline="true"/>
+                            <#input id="paramName" name="参数名称" value="${item.paramName}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="paramCode" name="参数编码" value="${item.paramCode}" underline="true"/>
+                            <#input id="paramValue" name="参数内容" value="${item.paramValue}" underline="true"/>
+                            <#input id="discribe" name="描述" value="${item.discribe}" underline="true"/>
+                            <#input id="label" name="标记" value="${item.label}" underline="true"/>
+                            <#input id="createTime" name="创建时间" value="${item.createTime}" underline="true"/>
+                            <#input id="updateTime" name="修改时间" value="${item.updateTime}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="BhvLogInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="BhvLogInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/bigdata/bhvLog/bhvLog_info.js"></script>
+@}

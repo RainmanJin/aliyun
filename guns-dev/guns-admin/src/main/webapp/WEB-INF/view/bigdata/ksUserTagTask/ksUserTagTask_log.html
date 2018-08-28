@@ -1,0 +1,19 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <input type="hidden" value="1" id="flag">
+        <input type="hidden" value="${item}" id="task_id">
+        <div class="form-horizontal">
+            <#fast_table id="KsUserTagTaskLogTable"/>
+        </div>
+
+    </div>
+</div>
+<style>
+    th{
+        background-color: #f1f1f1;
+        text-align: center;
+    }
+</style>
+<script src="${ctxPath}/static/modular/bigdata/ksUserTagTask/ksUserTagTask_info.js"></script>
+@}

@@ -1,0 +1,53 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <table class="table table-bordered">
+                <tr>
+                    <th width="15%">标签类别</th>
+                    <td colspan="2">${item.tag_classify_name}</td>
+                </tr>
+                <tr>
+                    <th >标签名</th>
+                    <td colspan="2">${item.tag_name}</td>
+                </tr>
+                <tr>
+                    <th>标签值</th>
+                    <td colspan="2">${item.tag_value}</td>
+                </tr>
+                <tr>
+                    <th>创建时间</th>
+                    <td colspan="2">${item.createtime}</td>
+                </tr>
+                <tr>
+                    <th rowspan="3">分组规则</th>
+                    <td>开始时间</td>
+                    <td>${item.starttime}</td>
+                </tr>
+                <tr>
+                    <td>结束时间</td>
+                    <td>${item.endtime}</td>
+                </tr>
+                <tr>
+                    <td>标签类型</td>
+                    <td>${item.tag_status} ：${item.tag_type}</td>
+                </tr>
+
+                <tr>
+                    <th>使用人数</th>
+                    <td colspan="2">${item.tag_user_count}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+<style>
+    th{
+        background-color: #f1f1f1;
+        text-align: center;
+    }
+</style>
+<script src="${ctxPath}/static/modular/bigdata/ksUserTagManage/ksUserTagManage_info.js"></script>
+@}

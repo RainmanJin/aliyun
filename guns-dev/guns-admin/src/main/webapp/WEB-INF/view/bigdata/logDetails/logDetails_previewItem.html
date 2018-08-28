@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <#input  id="pageNum_input" name="页面code" value="${item.pageNum}" readonly="readonly" title="${item.pageNum}"/>
+                    <#input  id="eventNum_input" name="事件code" value="${item.eventNum}" readonly="readonly"/>
+                    <#input  id="type_input" name="打点类型" value="${item.type}" readonly="readonly"/>
+                    <!--<div class="col-sm-10 text-danger">${logItem}</div>-->
+                </div>
+                <div class="col-sm-6">
+                    <#input  id="versionId_input" name="打点版本" value="${item.versionId}" readonly="readonly"/>
+                    <#input id="fitPlatformId_input" name="适用版本" value="${item.fitPlatformId}" readonly="readonly"/>
+                    <#input  id="log_description" name="打点说明" value="${item.logDescription}" readonly="readonly"/>
+                </div>
+
+            </div>
+            <div class="row" style="margin-left:-0.25rem">
+                <div class="col-sm-10">${logItem}</div>
+            </div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="LogDetailsInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<style>
+    th{
+        background-color: #f1f1f1;
+        text-align: center;
+    }
+</style>
+<script src="${ctxPath}/static/modular/bigdata/logDetails/logDetails_info.js"></script>
+@}
